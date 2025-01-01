@@ -14,8 +14,8 @@
     expense_min DW 0
     expense_max DW 0
 
-    msg1 DB 10, 13, 'Income Array Results:$'
-    msg2 DB 10, 13, 'Expense Array Results:$'
+    i_msg DB 10, 13, 'Income Array Results:$'
+    e_msg DB 10, 13, 'Expense Array Results:$'
 
     sum_msg DB 10, 13, 'Sum: $'
     min_msg DB 10, 13, 'Min: $'
@@ -23,16 +23,16 @@
 
 .CODE
 MAIN:
-    ; Initialize DS
-    MOV AX, @DATA
-    MOV DS, AX
+; Initialize DS
+MOV AX, @DATA
+MOV DS, AX
 
-    ; Process Income Array
-    LEA SI, income_array  ; Point to income array
-    MOV CX, 10            ; Set array size
-    MOV AX, 0             ; Initialize sum
-    MOV BX, [SI]          ; Initialize min to the first element
-    MOV DX, [SI]          ; Initialize max to the first element
+; Process Income Array
+LEA SI, income_array  ; Point to income array
+MOV CX, 10            ; Set array size
+MOV AX, 0             ; Initialize sum
+MOV BX, [SI]          ; Initialize min to the first element
+MOV DX, [SI]          ; Initialize max to the first element
 
 L1:
     MOV DI, [SI]          ; Get current element
@@ -96,7 +96,7 @@ L2_NEXT_MAX:
     MOV [expense_max], DX ; Store max
 
     ; Display Results for Income Array
-    LEA DX, msg1
+    LEA DX, i_msg
     MOV AH, 09H
     INT 21H
 
@@ -119,7 +119,7 @@ L2_NEXT_MAX:
     CALL PRINT_NUMBER
 
     ; Display Results for Expense Array
-    LEA DX, msg2
+    LEA DX, e_msg
     MOV AH, 09H
     INT 21H
 
@@ -165,4 +165,5 @@ PrintDigits:
     INT 21H
     LOOP PrintDigits       ; Repeat for all digits
     RET
+
 END MAIN

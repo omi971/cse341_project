@@ -36,6 +36,8 @@ f_msg_14 db 10, 13, " ****** View Transaction Page ****** $"
 f_msg_15 db 10, 13, " ****** Set Budget Page ****** $" 
 f_msg_16 db 10, 13, " ****** Exit Program Page ****** $" 
 
+input_msg db 10, 13, "Input to Select features: $"
+space db 10, 13,  " $"
 exit_msg db 10, 13, "Exiting the program Successfully$"
 
 ; --------------- Variables --------------- 
@@ -117,6 +119,10 @@ features:
 ; Show all features selection messeges
 
 mov ah, 9
+lea dx, space
+int 21h
+
+mov ah, 9
 lea dx, feature_msg
 int 21h
 
@@ -138,8 +144,16 @@ int 21h
 lea dx, f_msg_6
 int 21h
 
+mov ah, 9
+lea dx, space
+int 21h
+
 
 ; Taking the user input for feature selection
+mov ah, 9
+lea dx, input_msg
+int 21h
+
 mov ah, 1
 int 21h
 sub al, 30h
@@ -165,6 +179,8 @@ cmp cl, 6 ; Exit page
 je feature6
 
 ; --------------------------- Feature Selection Menus ---------------------------------
+
+
 feature1: ; Add Income
     mov ah, 9
     lea dx, f_msg_11

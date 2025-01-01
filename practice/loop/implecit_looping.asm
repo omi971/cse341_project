@@ -1,3 +1,6 @@
+; implecit looping example code
+; we use it like while loop
+
 .MODEL SMALL
  
 .STACK 100H
@@ -15,9 +18,18 @@ MOV AX,@DATA
 MOV DS,AX
 
 ; enter your code here
+mov dl, 30h
+
+start:
+cmp dl, 35h
+jge exit
+inc dl
+mov ah, 2
+int 21h
+jmp start
 
 ;exit to DOS
-
+exit:
 MOV AX,4C00H
 INT 21H
 
